@@ -27,4 +27,11 @@ export class AppareilService {
     console.log('Dans switchoffAll');
   }
 
+  switchOnOne(i: number) {
+    this.appareils[i].status = 'allumé';
+  }
+
+  switchOffOne(i: number) {
+    this.appareils[i].status = 'éteint';
+  }
 }
