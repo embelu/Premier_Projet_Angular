@@ -1,10 +1,20 @@
+import { AppareilModel } from './../models/appareil.model';
+import { HttpClient } from "@angular/common/http";
 import { Subject } from "rxjs";
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class AppareilService {
 
-  appareilsSubject = new Subject<any[]>();
+  appareilsSubject = new Subject<AppareilModel[]>();
 
-  private appareils = [
+  private appareils: AppareilModel[] = [];
+
+  constructor(private httpClient: HttpClient) {
+    this.getAllAppareil();
+  }
+
+  /*private appareils = [
     {
       id: 1,
       name: 'Machine à laver',
@@ -19,7 +29,7 @@ export class AppareilService {
       id: 3,
       name: 'Ordinateur',
       status: 'éteint'
-    }];
+    }];*/
 
   switchOnAll() {
     for (let appareil of this.appareils) {
@@ -61,15 +71,56 @@ export class AppareilService {
   }
 
   addAppareil(name: string, status: string) {
-    const appareilObject = {
-      id: 0,
-      name: '',
-      status: ''
-    };
-    appareilObject.name = name;
-    appareilObject.status = status;
-    appareilObject.id = this.appareils[(this.appareils.length - 1)].id + 1;
-    this.appareils.push(appareilObject);
+    //const appareilObject = {
+    //  id: 0,
+    //  name: '',
+    //  status: ''
+    //};
+    //appareilObject.name = name;
+    //appareilObject.status = status;
+    //appareilObject.id = this.appareils[(this.appareils.length - 1)].id + 1;
+    //this.appareils.push(appareilObject);
+
+    const appareilModel: AppareilModel = {
+      id: this.appareils[(this.appareils.length - 1)].id + 1,
+      name: name,
+      status: status
+    }
+
+    this.postAppareil(appareilModel);
+    this.appareils.push(appareilModel)
+
+
     this.emitAppareilSubject();
+  }
+
+  getAllAppareil() {
+    this.httpClient
+      .get<AppareilModel[]>('https://localhost:44318/api/Appareil')
+      .subscribe(
+        (response) => {
+          console.log(response);
+          this.appareils = response;
+          this.emitAppareilSubject();
+          console.log("toto");
+          console.log(this.appareils);
+        },
+        (error) => {
+          console.log('Erreur ! : ' + error);
+        }
+      );
+  }
+
+  postAppareil(AppareilModel: AppareilModel) {
+    this.httpClient
+      .post<AppareilModel[]>('https://localhost:44318/api/Appareil', AppareilModel)
+      .subscribe(
+        (response) => {
+          console.log('Appareil insert ok');
+        },
+        (error) => {
+          console.log('Erreur ! : ' + error);
+        }
+      );
   }
 }
