@@ -10,6 +10,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class AuthComponent implements OnInit {
 
+
   authStatus: boolean;
   valueChecked: boolean;
   userLocalStorage: string;
