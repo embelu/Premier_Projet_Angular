@@ -5,7 +5,9 @@
   <!--<div style="width:20px;height:20px;background-color:red;" *ngIf="appareilStatus === 'éteint'"></div>-->
   <h4 [ngStyle]="{color: getColor()}">Appareil : {{ appareilName }} -- Statut : {{ getStatus() }} -- Index :
     {{appareilIndex}}</h4>
-  <a [routerLink]="[id]">Détail</a>
+  <div><a [routerLink]="['/appareil',id]">Détail</a></div>
+  <div><a [routerLink]="['/updateAppareil',id]">Modification</a></div>
+
   <input type="text" class="form-control" [(ngModel)]="appareilName">
 
   <button class="btn btn-sm btn-success" *ngIf="appareilStatus === 'éteint'" (click)="onSwitch()">Allumer</button>

@@ -19,10 +19,12 @@ import { UserService } from './services/user.service';
 import { UserListComponent } from './user-list/user-list.component';
 import { NewUserComponent } from './new-user/new-user.component';
 import { HttpClientModule } from '@angular/common/http';
+import { UpdateAppareilComponent } from './update-appareil/update-appareil.component';
 
 const appRoutes: Routes = [
   { path: 'appareils', canActivate: [AuthGuard], component: AppareilViewComponent },
-  { path: 'appareils/:id', canActivate: [AuthGuard], component: SingleAppareilComponent },
+  { path: 'appareil/:id', canActivate: [AuthGuard], component: SingleAppareilComponent },
+  { path: 'updateAppareil/:id', canActivate: [AuthGuard], component: UpdateAppareilComponent },
   { path: 'edit', canActivate: [AuthGuard], component: EditAppareilComponent },
   { path: 'auth', component: AuthComponent },
   { path: 'users', component: UserListComponent },
@@ -45,7 +47,8 @@ const appRoutes: Routes = [
     NotfoundComponent,
     EditAppareilComponent,
     UserListComponent,
-    NewUserComponent
+    NewUserComponent,
+    UpdateAppareilComponent
   ],
   imports: [
     BrowserModule,

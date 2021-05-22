@@ -70,6 +70,16 @@ export class AppareilService {
     this.appareilsSubject.next(this.appareils.slice());
   }
 
+  updateAppareil(appareilToUpdate: AppareilModel) {
+    let appareil = this.getAppareilById(appareilToUpdate.id);
+    appareil.name = appareilToUpdate.name;
+    appareil.status = appareilToUpdate.status;
+    this.emitAppareilSubject();
+
+    this.putAppareil(appareilToUpdate);
+  }
+
+
   addAppareil(name: string, status: string) {
     //const appareilObject = {
     //  id: 0,
@@ -102,8 +112,6 @@ export class AppareilService {
           console.log(response);
           this.appareils = response;
           this.emitAppareilSubject();
-          console.log("toto");
-          console.log(this.appareils);
         },
         (error) => {
           console.log('Erreur ! : ' + error);
@@ -117,6 +125,19 @@ export class AppareilService {
       .subscribe(
         (response) => {
           console.log('Appareil insert ok');
+        },
+        (error) => {
+          console.log('Erreur ! : ' + error);
+        }
+      );
+  }
+
+  putAppareil(appareilModel: AppareilModel) {
+    this.httpClient
+      .put<AppareilModel[]>('https://localhost:44318/api/Appareil', appareilModel)
+      .subscribe(
+        (response) => {
+          console.log('Appareil update ok');
         },
         (error) => {
           console.log('Erreur ! : ' + error);
