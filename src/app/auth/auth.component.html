@@ -1,3 +1,27 @@
 <h2>Authentification</h2>
-<button class="btn btn-success" *ngIf="!authStatus" (click)="onSignIn()">Se connecter</button>
-<button class="btn btn-danger" *ngIf="authStatus" (click)="onSignOut()">Se déconnecter</button>
+
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+
+  <div class="form-group">
+    <label for="user">
+      Utilisateur
+    </label>
+    <input type="text" id="user" class="form-control" name="user" [(ngModel)]="userLocalStorage">
+  </div>
+
+  <div class="form-group">
+    <label for="mdp">
+      Mot de Passe
+    </label>
+    <input type="text" id="mdp" class="form-control" name="mdp" [(ngModel)]="mdpLocalStorage">
+  </div>
+
+  <div>
+    <input type="checkbox" id="remember" name="remember" [(ngModel)]="valueChecked">
+    <label for="remember">Se souvenir de moi</label>
+  </div>
+
+  <button class="btn btn-success" type="submit" *ngIf="!authStatus" (click)="onSignIn()">Se connecter</button>
+  <button class="btn btn-danger" type="button" *ngIf="authStatus" (click)="onSignOut()">Se déconnecter</button>
+
+</form>
