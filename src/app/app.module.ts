@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MonPremierComponent } from './mon-premier/mon-premier.component';
 import { AppareilComponent } from './appareil/appareil.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, NgForm } from '@angular/forms';
 import { AppareilService } from './services/appareil.service';
 import { AuthComponent } from './auth/auth.component';
 import { AppareilViewComponent } from './appareil-view/appareil-view.component';
@@ -20,6 +20,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { NewUserComponent } from './new-user/new-user.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UpdateAppareilComponent } from './update-appareil/update-appareil.component';
+
 
 const appRoutes: Routes = [
   { path: 'appareils', canActivate: [AuthGuard], component: AppareilViewComponent },
@@ -49,6 +50,7 @@ const appRoutes: Routes = [
     UserListComponent,
     NewUserComponent,
     UpdateAppareilComponent
+
   ],
   imports: [
     BrowserModule,
